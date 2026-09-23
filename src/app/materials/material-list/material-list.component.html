@@ -1,0 +1,88 @@
+<div class="container">
+  
+  <div class="header">
+  <h1>Materiales</h1>
+
+  <button mat-flat-button (click)="goToCreate()">
+    Nuevo material
+  </button>
+</div>
+
+  <table mat-table [dataSource]="materials" class="mat-elevation-z2">
+
+    <!-- Código -->
+    <ng-container matColumnDef="code">
+      <th mat-header-cell *matHeaderCellDef>
+        Código
+      </th>
+
+      <td mat-cell *matCellDef="let material">
+        {{ material.code }}
+      </td>
+    </ng-container>
+
+    <!-- Descripción -->
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef>
+        Descripción
+      </th>
+
+      <td mat-cell *matCellDef="let material">
+        {{ material.description }}
+      </td>
+    </ng-container>
+
+    <!-- Unidad -->
+    <ng-container matColumnDef="unit">
+      <th mat-header-cell *matHeaderCellDef>
+        Unidad
+      </th>
+
+      <td mat-cell *matCellDef="let material">
+        {{ material.unit.name }}
+      </td>
+    </ng-container>
+
+    <!-- Precio -->
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef>
+        Precio
+      </th>
+
+      <td mat-cell *matCellDef="let material">
+        {{ material.price | currency:'COP':'symbol':'1.0-0' }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+  <th mat-header-cell *matHeaderCellDef>
+    Acciones
+  </th>
+
+  <td mat-cell *matCellDef="let material">
+
+    <button
+      mat-button
+      (click)="editMaterial(material.id)"
+    >
+      Editar
+    </button>
+
+    <button
+      mat-button
+      (click)="deleteMaterial(material.id)"
+    >
+      Eliminar
+    </button>
+
+  </td>
+</ng-container>
+
+    <!-- Encabezado -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+    <!-- Filas -->
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+  </table>
+</div>

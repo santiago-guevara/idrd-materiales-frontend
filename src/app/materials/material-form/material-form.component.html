@@ -1,0 +1,120 @@
+<div class="form-container">
+
+  <h1>
+    {{ materialId ? 'Editar material' : 'Nuevo material' }}
+  </h1>
+
+  <form [formGroup]="materialForm" (ngSubmit)="onSubmit()">
+
+    <!-- Código -->
+    <mat-form-field appearance="outline">
+      <mat-label>Código</mat-label>
+
+      <input
+        matInput
+        formControlName="code"
+        placeholder="Ej. MAT-002"
+      />
+
+      @if (
+        materialForm.controls.code.touched &&
+        materialForm.controls.code.hasError('required')
+      ) {
+        <mat-error>
+          El código es obligatorio
+        </mat-error>
+      }
+    </mat-form-field>
+
+
+    <!-- Descripción -->
+    <mat-form-field appearance="outline">
+      <mat-label>Descripción</mat-label>
+
+      <input
+        matInput
+        formControlName="description"
+        placeholder="Ej. Arena"
+      />
+
+      @if (
+        materialForm.controls.description.touched &&
+        materialForm.controls.description.hasError('required')
+      ) {
+        <mat-error>
+          La descripción es obligatoria
+        </mat-error>
+      }
+    </mat-form-field>
+
+
+    <!-- Unidad -->
+    <mat-form-field appearance="outline">
+      <mat-label>Unidad</mat-label>
+
+      <mat-select formControlName="unitId">
+
+        @for (unit of units; track unit.id) {
+          <mat-option [value]="unit.id">
+            {{ unit.name }}
+          </mat-option>
+        }
+
+      </mat-select>
+
+      @if (
+        materialForm.controls.unitId.touched &&
+        materialForm.controls.unitId.hasError('min')
+      ) {
+        <mat-error>
+          Selecciona una unidad
+        </mat-error>
+      }
+    </mat-form-field>
+
+
+    <!-- Precio -->
+    <mat-form-field appearance="outline">
+      <mat-label>Precio</mat-label>
+
+      <input
+        matInput
+        type="number"
+        formControlName="price"
+        placeholder="Ej. 35000"
+      />
+
+      <span matTextPrefix>$&nbsp;</span>
+
+      @if (
+        materialForm.controls.price.touched &&
+        materialForm.controls.price.hasError('required')
+      ) {
+        <mat-error>
+          El precio es obligatorio
+        </mat-error>
+      }
+
+      @if (
+        materialForm.controls.price.touched &&
+        materialForm.controls.price.hasError('min')
+      ) {
+        <mat-error>
+          El precio debe ser mayor que 0
+        </mat-error>
+      }
+    </mat-form-field>
+
+
+    <!-- Botón -->
+    <button
+      mat-flat-button
+      type="submit"
+      [disabled]="materialForm.invalid"
+    >
+      {{ materialId ? 'Guardar cambios' : 'Crear material' }}
+    </button>
+
+  </form>
+
+</div>

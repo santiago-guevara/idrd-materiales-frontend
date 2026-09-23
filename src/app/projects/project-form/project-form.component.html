@@ -1,0 +1,78 @@
+<div class="form-container">
+
+  <h1>
+    {{ projectId ? 'Editar proyecto' : 'Nuevo proyecto' }}
+  </h1>
+
+  <form
+    [formGroup]="projectForm"
+    (ngSubmit)="onSubmit()"
+  >
+
+    <!-- Nombre -->
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre del proyecto</mat-label>
+
+      <input
+        matInput
+        formControlName="name"
+        placeholder="Ej. Parque deportivo"
+      />
+
+      @if (
+        projectForm.controls.name.touched &&
+        projectForm.controls.name.hasError('required')
+      ) {
+        <mat-error>
+          El nombre es obligatorio
+        </mat-error>
+      }
+    </mat-form-field>
+
+
+    <!-- Departamento -->
+    <mat-form-field appearance="outline">
+      <mat-label>Departamento</mat-label>
+
+      <mat-select formControlName="departmentId">
+
+        @for (
+          department of departments;
+          track department.id
+        ) {
+          <mat-option [value]="department.id">
+            {{ department.name }}
+          </mat-option>
+        }
+
+      </mat-select>
+    </mat-form-field>
+
+
+    <!-- Ciudad -->
+    <mat-form-field appearance="outline">
+      <mat-label>Ciudad</mat-label>
+
+      <mat-select formControlName="cityId">
+
+        @for (city of cities; track city.id) {
+          <mat-option [value]="city.id">
+            {{ city.name }}
+          </mat-option>
+        }
+
+      </mat-select>
+    </mat-form-field>
+
+
+    <button
+      mat-flat-button
+      type="submit"
+      [disabled]="projectForm.invalid"
+    >
+      {{ projectId ? 'Guardar cambios' : 'Crear proyecto' }}
+    </button>
+
+  </form>
+
+</div>

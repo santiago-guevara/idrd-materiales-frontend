@@ -1,0 +1,139 @@
+<div class="container">
+
+  <h1>Materiales del proyecto</h1>
+
+  <!-- Asignar material -->
+
+  <div class="assign-form">
+
+    <mat-form-field appearance="outline">
+      <mat-label>Material</mat-label>
+
+      <mat-select [(value)]="selectedMaterialId">
+
+        @for (
+          material of materials;
+          track material.id
+        ) {
+          <mat-option [value]="material.id">
+            {{ material.code }} -
+            {{ material.description }}
+          </mat-option>
+        }
+
+      </mat-select>
+    </mat-form-field>
+
+
+    <mat-form-field appearance="outline">
+      <mat-label>Cantidad</mat-label>
+
+      <input
+        matInput
+        type="number"
+        min="1"
+        [(ngModel)]="quantity"
+      />
+    </mat-form-field>
+
+
+    <button
+      mat-flat-button
+      (click)="assignMaterial()"
+      [disabled]="!selectedMaterialId || quantity <= 0"
+    >
+      Agregar material
+    </button>
+
+  </div>
+
+
+  <!-- Materiales asignados -->
+
+  <h2>Materiales asignados</h2>
+
+  <table
+    mat-table
+    [dataSource]="assignedMaterials"
+    class="mat-elevation-z2"
+  >
+
+    <!-- Material -->
+    <ng-container matColumnDef="material">
+      <th mat-header-cell *matHeaderCellDef>
+        Material
+      </th>
+
+      <td mat-cell *matCellDef="let item">
+        {{ item.material.description }}
+      </td>
+    </ng-container>
+
+
+    <!-- Unidad -->
+    <ng-container matColumnDef="unit">
+      <th mat-header-cell *matHeaderCellDef>
+        Unidad
+      </th>
+
+      <td mat-cell *matCellDef="let item">
+        {{ item.material.unit.name }}
+      </td>
+    </ng-container>
+
+
+    <!-- Cantidad -->
+    <ng-container matColumnDef="quantity">
+      <th mat-header-cell *matHeaderCellDef>
+        Cantidad
+      </th>
+
+      <td mat-cell *matCellDef="let item">
+        {{ item.quantity }}
+      </td>
+    </ng-container>
+
+
+    <!-- Precio -->
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef>
+        Precio unitario
+      </th>
+
+      <td mat-cell *matCellDef="let item">
+        {{ item.material.price | currency:'COP':'symbol':'1.0-0' }}
+      </td>
+    </ng-container>
+
+
+    <!-- Total -->
+    <ng-container matColumnDef="total">
+      <th mat-header-cell *matHeaderCellDef>
+        Total
+      </th>
+
+      <td mat-cell *matCellDef="let item">
+        {{
+          calculateTotal(item)
+            | currency:'COP':'symbol':'1.0-0'
+        }}
+      </td>
+    </ng-container>
+
+
+    <tr
+      mat-header-row
+      *matHeaderRowDef="displayedColumns"
+    ></tr>
+
+    <tr
+      mat-row
+      *matRowDef="
+        let row;
+        columns: displayedColumns
+      "
+    ></tr>
+
+  </table>
+
+</div>
