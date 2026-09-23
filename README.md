@@ -1,59 +1,70 @@
-# IdrdMaterialesFrontend
+# IDRD Laboratorio - Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.27.
+Interfaz web desarrollada en Angular para la gestión de materiales, proyectos y asignaciones del laboratorio IDRD.
 
-## Development server
+---
 
-To start a local development server, run:
+## Requisitos
+
+- Node.js 22+
+- npm
+- Angular CLI (`npm install -g @angular/cli`)
+
+---
+
+## Configuración inicial
+
+### 1. Clonar el repositorio e instalar dependencias
 
 ```bash
+npm install
+```
+
+### 2. Variables de entorno
+
+Asegúrate de configurar la URL de la API del backend en el archivo de entorno correspondientes dentro de `src/environments/`:
+
+```typescript
+// src/environments/environment.ts
+export const environment = {
+  production: false,
+  apiUrl: 'http://localhost:3000'
+};
+```
+
+---
+
+## Ejecución en desarrollo
+
+Para iniciar el servidor de desarrollo local:
+
+```bash
+npm start
+# o usando Angular CLI directamente:
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Una vez iniciado, abre tu navegador e ingresa a:
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+```
+http://localhost:4200
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+La aplicación se recargará automáticamente si realizas cambios en los archivos fuente.
+
+---
+
+## Comandos útiles
+
+### Compilar para producción
 
 ```bash
-ng generate --help
+npm run build
 ```
+Los archivos compilados se generarán en la carpeta `dist/`.
 
-## Building
+---
 
-To build the project run:
+## Despliegue con el entorno global (Opcional)
 
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Si deseas ejecutar este frontend junto con el backend y la base de datos de manera unificada mediante Docker, consulta la guía en el proyecto **`idrd-docker`**.
